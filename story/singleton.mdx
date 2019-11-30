@@ -4,10 +4,14 @@ name: Singleton Data Provider
 
 import { Playground } from 'docz';
 import { SingletonDataProvider } from "../src";
+import { DataConsumer } from "./mock/consumer";
 
 # Singleton Data Provider
 
 ## Loading Based
 
 <Playground>
+    <SingletonDataProvider>
+        <DataConsumer />
+    </SingletonDataProvider>
 </Playground>
