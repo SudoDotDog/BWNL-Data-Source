@@ -8,6 +8,7 @@ import { withDataSource } from "../src/with";
 import { DataConsumer } from "./mock/consumer";
 
 export const Provided = withDataSource(DataConsumer, {
-    first: () => new Promise((resolve) => resolve('First Result')),
+    // tslint:disable-next-line: no-magic-numbers
+    first: () => new Promise((resolve) => setTimeout(() => resolve('First Result'), 1000)),
     second: () => new Promise((resolve) => resolve('Second Result')),
 });
