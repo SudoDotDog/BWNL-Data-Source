@@ -35,19 +35,15 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
             if (typeof this.props.sources[key] === 'function') {
 
                 Promise.resolve(this.props.sources[key](this.props))
-                    .then((result: any) => {
-                        this.setState({
-                            data: {
-                                ...this.state.data,
-                                [key]: result,
-                            },
-                        });
-                    })
-                    .catch((reason: any) => {
-                        this.setState({
-                            error: reason,
-                        });
-                    });
+                    .then((result: any) => this.setState({
+                        data: {
+                            ...this.state.data,
+                            [key]: result,
+                        },
+                    }))
+                    .catch((reason: any) => this.setState({
+                        error: reason,
+                    }));
             }
         }
     }
