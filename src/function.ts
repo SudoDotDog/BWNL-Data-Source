@@ -5,17 +5,12 @@
  */
 
 import * as React from "react";
-import { CommonDataProviderProps, FetchDataFunction } from "./common";
-
-export type FunctionDataProviderOriginalProps = {
-
-    readonly sources: Record<string, FetchDataFunction<FunctionDataProviderProps & Record<string, any>>>;
-};
+import { CommonDataProviderProps } from "./common";
 
 export type FunctionDataProviderProps = {
 
     readonly children: (props: Record<string, any>) => React.ReactNode;
-} & FunctionDataProviderOriginalProps & CommonDataProviderProps & Record<string, any>;
+} & CommonDataProviderProps;
 
 export type FunctionDataProviderStates = {
 
@@ -75,7 +70,7 @@ export class FunctionDataProvider extends React.Component<FunctionDataProviderPr
 
     private _calculateProps() {
 
-        const propKeys: Array<keyof (FunctionDataProviderOriginalProps & CommonDataProviderProps) | string> = [
+        const propKeys: Array<keyof FunctionDataProviderProps | string> = [
             'children',
             'sources',
             'loadingComponent',
