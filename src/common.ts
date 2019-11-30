@@ -13,3 +13,5 @@ export type CommonDataProviderProps = {
     loadingComponent?: LoadingComponent;
     loading?: React.ReactNode;
 };
+
+export type FetchDataFunction<P extends any = any> = (props: P) => Promise<void>;

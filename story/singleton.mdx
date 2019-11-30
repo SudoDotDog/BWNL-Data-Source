@@ -11,7 +11,11 @@ import { DataConsumer } from "./mock/consumer";
 ## Loading Based
 
 <Playground>
-    <SingletonDataProvider>
+    <SingletonDataProvider
+        sources={{
+            info: () => new Promise((resolve) => resolve('Result')),
+        }}
+    >
         <DataConsumer />
     </SingletonDataProvider>
 </Playground>

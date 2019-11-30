@@ -5,11 +5,11 @@
  */
 
 import * as React from "react";
-import { CommonDataProviderProps } from "./common";
+import { CommonDataProviderProps, FetchDataFunction } from "./common";
 
 export type SingletonDataProviderProps = {
 
-    readonly sources: Record<string, any>;
+    readonly sources: Record<string, FetchDataFunction<SingletonDataProviderProps & Record<string, any>>>;
     readonly childrenProps?: any;
 } & CommonDataProviderProps;
 
@@ -67,6 +67,9 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
 
     private _matchData(): boolean {
 
-        return true;
+        const sourceKeys: string[] = Object.keys(this.props.sources);
+        const dataKeys: string[] = Object.keys(this.state.data);
+
+        return sourceKeys.length === dataKeys.length;
     }
 }

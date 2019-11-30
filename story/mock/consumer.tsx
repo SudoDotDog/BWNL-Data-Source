@@ -13,7 +13,7 @@ export type DataConsumerProps = {
 
 export class DataConsumer extends React.Component<DataConsumerProps> {
 
-    public public() {
+    public render() {
 
         return (<div>
             Info: {this.props.data.info}
