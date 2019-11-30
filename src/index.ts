@@ -6,4 +6,5 @@
 
 export * from "./common";
 export * from "./singleton";
+export * from "./with";
 
