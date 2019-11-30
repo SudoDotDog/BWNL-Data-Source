@@ -23,4 +23,4 @@ export type CommonDataProviderProps = {
     readonly fallback?: React.ReactNode;
 };
 
-export type FetchDataFunction<P extends any = any> = (props: P) => Promise<void>;
+export type FetchDataFunction<P extends any = any> = (props: P) => Promise<any>;
