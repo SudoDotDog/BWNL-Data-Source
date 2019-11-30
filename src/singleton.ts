@@ -5,14 +5,7 @@
  */
 
 import * as React from "react";
-import { CommonDataProviderProps, FetchDataFunction } from "./common";
-
-export type SingletonDataProviderOriginalProps = {
-
-    readonly sources: Record<string, FetchDataFunction<SingletonDataProviderProps & Record<string, any>>>;
-};
-
-export type SingletonDataProviderProps = SingletonDataProviderOriginalProps & CommonDataProviderProps & Record<string, any>;
+import { CommonDataProviderProps } from "./common";
 
 export type SingletonDataProviderStates = {
 
@@ -20,7 +13,7 @@ export type SingletonDataProviderStates = {
     readonly error: Error | null;
 };
 
-export class SingletonDataProvider extends React.Component<SingletonDataProviderProps, SingletonDataProviderStates> {
+export class SingletonDataProvider extends React.Component<CommonDataProviderProps, SingletonDataProviderStates> {
 
     public readonly state: SingletonDataProviderStates = {
 
@@ -73,7 +66,7 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
 
     private _calculateProps() {
 
-        const propKeys: Array<keyof (SingletonDataProviderOriginalProps & CommonDataProviderProps) | string> = [
+        const propKeys: Array<keyof CommonDataProviderProps | string> = [
             'children',
             'sources',
             'loadingComponent',

@@ -14,7 +14,7 @@ export type FallbackComponentProps = {
 export type LoadingComponent = React.ComponentType<any>;
 export type FallbackComponent = React.ComponentType<FallbackComponentProps>;
 
-export type CommonDataProviderProps = {
+export type CommonDataProviderFallbackProps = {
 
     readonly loadingComponent?: LoadingComponent;
     readonly loading?: React.ReactNode;
@@ -24,3 +24,10 @@ export type CommonDataProviderProps = {
 };
 
 export type FetchDataFunction<P extends any = any> = (props: P) => Promise<any>;
+
+export type CommonDataProviderOriginalProps = {
+
+    readonly sources: Record<string, FetchDataFunction<CommonDataProviderProps & Record<string, any>>>;
+};
+
+export type CommonDataProviderProps = CommonDataProviderOriginalProps & CommonDataProviderFallbackProps & Record<string, any>;
