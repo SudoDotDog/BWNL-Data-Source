@@ -16,11 +16,12 @@ export const withDataSource = <P extends any>(
 
     return (props: P) => {
 
-        const node: React.ReactNode = React.createElement(component, props);
+        const node: React.ReactNode = React.createElement(component);
 
         return React.createElement(SingletonDataProvider, {
-            sources,
+            ...props,
             ...fallbacks,
+            sources,
         } as SingletonDataProviderProps, node);
     };
 };
