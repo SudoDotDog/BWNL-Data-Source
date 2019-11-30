@@ -11,7 +11,7 @@ import { SingletonDataProvider, SingletonDataProviderProps } from "./singleton";
 export const withDataSource = <P extends any>(
     component: React.ComponentType<P>,
     sources: Record<string, FetchDataFunction<SingletonDataProviderProps & Record<string, any>>>,
-    fallbacks: CommonDataProviderProps,
+    fallbacks?: CommonDataProviderProps,
 ): React.ComponentType<P> => {
 
     return (props: P) => {
