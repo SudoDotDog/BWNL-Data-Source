@@ -41,14 +41,21 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
             });
         }
 
-        return
+        return this._renderLoading();
     }
 
     private _renderLoading() {
 
+        if (this.props.loading) {
+
+            return this.props.loading;
+        }
+
         if (this.props.loadingComponent) {
 
-
+            return React.createElement(this.props.loadingComponent);
         }
+
+        return null;
     }
 }

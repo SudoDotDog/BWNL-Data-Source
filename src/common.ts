@@ -10,5 +10,6 @@ export type LoadingComponent = React.ComponentType<any>;
 
 export type CommonDataProviderProps = {
 
-    loadingComponent: LoadingComponent,
+    loadingComponent?: LoadingComponent;
+    loading?: React.ReactNode;
 };
