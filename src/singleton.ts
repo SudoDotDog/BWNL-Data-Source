@@ -73,7 +73,8 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
 
     private _calculateProps() {
 
-        const propKeys: Array<keyof (SingletonDataProviderOriginalProps & CommonDataProviderProps)> = [
+        const propKeys: Array<keyof (SingletonDataProviderOriginalProps & CommonDataProviderProps) | string> = [
+            'children',
             'sources',
             'loadingComponent',
             'loading',

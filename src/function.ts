@@ -75,7 +75,8 @@ export class FunctionDataProvider extends React.Component<FunctionDataProviderPr
 
     private _calculateProps() {
 
-        const propKeys: Array<keyof (FunctionDataProviderOriginalProps & CommonDataProviderProps)> = [
+        const propKeys: Array<keyof (FunctionDataProviderOriginalProps & CommonDataProviderProps) | string> = [
+            'children',
             'sources',
             'loadingComponent',
             'loading',
