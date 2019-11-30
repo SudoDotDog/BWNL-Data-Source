@@ -7,6 +7,16 @@ import { Provided } from "./hoc";
 
 # With Data Source HOC
 
+## Build HOC
+
+```ts
+const Provided = withDataSource(DataConsumer, {
+    // tslint:disable-next-line: no-magic-numbers
+    first: () => new Promise((resolve) => setTimeout(() => resolve('First Result'), 1000)),
+    second: () => new Promise((resolve) => resolve('Second Result')),
+});
+```
+
 ## Basic
 
 <Playground>
