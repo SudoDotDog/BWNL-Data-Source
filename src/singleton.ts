@@ -11,7 +11,7 @@ export type SingletonDataProviderProps = {
 
     readonly sources: Record<string, FetchDataFunction<SingletonDataProviderProps & Record<string, any>>>;
     readonly childrenProps?: any;
-} & CommonDataProviderProps;
+} & CommonDataProviderProps & Record<string, any>;
 
 export type SingletonDataProviderStates = {
 
