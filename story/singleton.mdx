@@ -15,7 +15,9 @@ import { DataConsumer } from "./mock/consumer";
         sources={{
             first: () => new Promise((resolve) => setTimeout(() => resolve('First Result'), 1000)),
             second: () => new Promise((resolve) => resolve('Second Result')),
+            relative: (props) => new Promise((resolve) => resolve(props.relative)),
         }}
+        relative="Relative"
         loading={<div>Loading</div>}
     >
         <DataConsumer />
