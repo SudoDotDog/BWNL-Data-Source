@@ -5,7 +5,7 @@
  */
 
 import * as React from "react";
-import { CommonDataProviderFallbackProps } from "./common";
+import { CommonDataProviderFallbackProps, CommonDataProviderProps } from "./common";
 
 export const renderLoadingPart = (props: CommonDataProviderFallbackProps): React.ReactNode => {
 
@@ -18,4 +18,27 @@ export const renderLoadingPart = (props: CommonDataProviderFallbackProps): React
         return React.createElement(props.loadingComponent);
     }
     return null;
+};
+
+export const calculateExtraProps = (props: CommonDataProviderProps & Record<string, any>): Record<string, any> => {
+
+    const propKeys: Array<keyof CommonDataProviderProps | string> = [
+        'children',
+        'sources',
+        'loadingComponent',
+        'loading',
+        'fallbackComponent',
+        'fallback',
+    ];
+
+    return Object.keys(props).reduce((previous: Record<string, any>, current: string) => {
+
+        if (propKeys.includes(current as any)) {
+            return previous;
+        }
+        return {
+            ...previous,
+            [current]: props[current],
+        };
+    }, {} as Record<string, any>);
 };

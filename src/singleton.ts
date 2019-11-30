@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { CommonDataProviderProps } from "./common";
-import { renderLoadingPart } from "./util";
+import { calculateExtraProps, renderLoadingPart } from "./util";
 
 export type SingletonDataProviderStates = {
 
@@ -58,34 +58,11 @@ export class SingletonDataProvider extends React.Component<CommonDataProviderPro
 
             const children: React.ReactElement = React.Children.only(this.props.children) as React.ReactElement;
             return React.cloneElement(children, {
-                ...this._calculateProps(),
+                ...calculateExtraProps(this.props),
                 data: this.state.data,
             });
         }
         return null;
-    }
-
-    private _calculateProps() {
-
-        const propKeys: Array<keyof CommonDataProviderProps | string> = [
-            'children',
-            'sources',
-            'loadingComponent',
-            'loading',
-            'fallbackComponent',
-            'fallback',
-        ];
-
-        return Object.keys(this.props).reduce((previous: Record<string, any>, current: string) => {
-
-            if (propKeys.includes(current as any)) {
-                return previous;
-            }
-            return {
-                ...previous,
-                [current]: this.props[current],
-            };
-        }, {} as Record<string, any>);
     }
 
     private _matchData(): boolean {
