@@ -16,7 +16,8 @@ export class DataConsumer extends React.Component<DataConsumerProps> {
     public render() {
 
         return (<div>
-            Info: {this.props.data.info}
+            <div>First: {this.props.data.first}</div>
+            <div>Second: {this.props.data.second}</div>
         </div>);
     }
 }

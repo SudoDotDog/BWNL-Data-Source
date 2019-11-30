@@ -16,18 +16,40 @@ export type SingletonDataProviderProps = {
 export type SingletonDataProviderStates = {
 
     readonly data: Record<string, any>;
+    readonly error: Error | null;
 };
 
-export class SingletonDataProvider extends React.Component<SingletonDataProviderProps> {
+export class SingletonDataProvider extends React.Component<SingletonDataProviderProps, SingletonDataProviderStates> {
 
     public readonly state: SingletonDataProviderStates = {
 
         data: {},
+        error: null,
     };
 
-    constructor(props: SingletonDataProviderProps) {
+    public componentDidMount() {
 
-        super(props);
+        const sourceKeys: string[] = Object.keys(this.props.sources);
+        for (const key of sourceKeys) {
+
+            if (typeof this.props.sources[key] === 'function') {
+
+                Promise.resolve(this.props.sources[key](this.props))
+                    .then((result: any) => {
+                        this.setState({
+                            data: {
+                                ...this.state.data,
+                                [key]: result,
+                            },
+                        });
+                    })
+                    .catch((reason: any) => {
+                        this.setState({
+                            error: reason,
+                        });
+                    });
+            }
+        }
     }
 
     public render() {
