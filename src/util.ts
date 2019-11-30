@@ -20,6 +20,22 @@ export const renderLoadingPart = (props: CommonDataProviderFallbackProps): React
     return null;
 };
 
+export const matchSourceData = (sources: Record<string, any>, data: Record<string, any>): boolean => {
+
+    if (!sources) {
+        return true;
+    }
+
+    if (!data) {
+        return false;
+    }
+
+    const sourceKeys: string[] = Object.keys(sources);
+    const dataKeys: string[] = Object.keys(data);
+
+    return sourceKeys.length === dataKeys.length;
+};
+
 export const calculateExtraProps = (props: CommonDataProviderProps & Record<string, any>): Record<string, any> => {
 
     const propKeys: Array<keyof CommonDataProviderProps | string> = [

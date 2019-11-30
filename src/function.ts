@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { CommonDataProviderProps } from "./common";
-import { calculateExtraProps, renderLoadingPart } from "./util";
+import { calculateExtraProps, matchSourceData, renderLoadingPart } from "./util";
 
 export type FunctionDataProviderProps = {
 
@@ -50,7 +50,7 @@ export class FunctionDataProvider extends React.Component<FunctionDataProviderPr
 
     public render() {
 
-        if (this._matchData()) {
+        if (matchSourceData(this.props.sources, this.state.data)) {
 
             return this._renderChildren();
         }
@@ -67,13 +67,5 @@ export class FunctionDataProvider extends React.Component<FunctionDataProviderPr
             });
         }
         return null;
-    }
-
-    private _matchData(): boolean {
-
-        const sourceKeys: string[] = Object.keys(this.props.sources);
-        const dataKeys: string[] = Object.keys(this.state.data);
-
-        return sourceKeys.length === dataKeys.length;
     }
 }
