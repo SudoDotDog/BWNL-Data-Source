@@ -32,6 +32,15 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
 
     public render() {
 
+        if (this._matchData()) {
+
+            return this._renderChildren();
+        }
+        return this._renderLoading();
+    }
+
+    private _renderChildren() {
+
         if (this.props.children) {
 
             const children: React.ReactElement = React.Children.only(this.props.children) as React.ReactElement;
@@ -40,8 +49,7 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
                 data: this.state.data,
             });
         }
-
-        return this._renderLoading();
+        return null;
     }
 
     private _renderLoading() {
@@ -50,12 +58,15 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
 
             return this.props.loading;
         }
-
         if (this.props.loadingComponent) {
 
             return React.createElement(this.props.loadingComponent);
         }
-
         return null;
+    }
+
+    private _matchData(): boolean {
+
+        return true;
     }
 }
