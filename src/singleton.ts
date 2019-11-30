@@ -7,11 +7,13 @@
 import * as React from "react";
 import { CommonDataProviderProps, FetchDataFunction } from "./common";
 
-export type SingletonDataProviderProps = {
+export type SingletonDataProviderOriginalProps = {
 
     readonly sources: Record<string, FetchDataFunction<SingletonDataProviderProps & Record<string, any>>>;
     readonly childrenProps?: any;
-} & CommonDataProviderProps & Record<string, any>;
+};
+
+export type SingletonDataProviderProps = SingletonDataProviderOriginalProps & CommonDataProviderProps & Record<string, any>;
 
 export type SingletonDataProviderStates = {
 
@@ -63,11 +65,35 @@ export class SingletonDataProvider extends React.Component<SingletonDataProvider
 
             const children: React.ReactElement = React.Children.only(this.props.children) as React.ReactElement;
             return React.cloneElement(children, {
+                ...this._calculateProps(),
                 ...this.props.childrenProps,
                 data: this.state.data,
             });
         }
         return null;
+    }
+
+    private _calculateProps() {
+
+        const propKeys: Array<keyof (SingletonDataProviderOriginalProps & CommonDataProviderProps)> = [
+            'sources',
+            'childrenProps',
+            'loadingComponent',
+            'loading',
+            'fallbackComponent',
+            'fallback',
+        ];
+
+        return Object.keys(this.props).reduce((previous: Record<string, any>, current: string) => {
+
+            if (propKeys.includes(current as any)) {
+                return previous;
+            }
+            return {
+                ...previous,
+                [current]: this.props[current],
+            };
+        }, {} as Record<string, any>);
     }
 
     private _renderLoading() {
