@@ -6,6 +6,7 @@
 
 import * as React from "react";
 import { CommonDataProviderProps } from "./common";
+import { renderLoadingPart } from "./util";
 
 export type SingletonDataProviderStates = {
 
@@ -48,7 +49,7 @@ export class SingletonDataProvider extends React.Component<CommonDataProviderPro
 
             return this._renderChildren();
         }
-        return this._renderLoading();
+        return renderLoadingPart(this.props);
     }
 
     private _renderChildren() {
@@ -85,19 +86,6 @@ export class SingletonDataProvider extends React.Component<CommonDataProviderPro
                 [current]: this.props[current],
             };
         }, {} as Record<string, any>);
-    }
-
-    private _renderLoading() {
-
-        if (this.props.loading) {
-
-            return this.props.loading;
-        }
-        if (this.props.loadingComponent) {
-
-            return React.createElement(this.props.loadingComponent);
-        }
-        return null;
     }
 
     private _matchData(): boolean {
