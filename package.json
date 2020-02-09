@@ -1,6 +1,6 @@
 {
   "name": "@bwnl/data-source",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": ":recycle: External Data Fetching for React",
   "main": "index.js",
   "directories": {
