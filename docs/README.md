@@ -6,3 +6,11 @@
 [![downloads](https://img.shields.io/npm/dm/@bwnl/data-source.svg)](https://www.npmjs.com/package/@bwnl/data-source)
 
 :recycle: External Data Fetching for React
+
+## Install
+
+```sh
+npm install @bwnl/data-source --save
+# Or
+yarn add @bwnl/data-source
+```
