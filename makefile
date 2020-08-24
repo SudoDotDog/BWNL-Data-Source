@@ -6,6 +6,7 @@ tsc := node_modules/.bin/tsc
 docz := node_modules/.bin/docz
 mocha := node_modules/.bin/mocha
 ts_node := node_modules/.bin/ts-node
+eslint := node_modules/.bin/eslint
 
 .IGNORE: clean-linux
 
@@ -25,12 +26,25 @@ docz:
 
 tests:
 	@echo "[INFO] Testing with Mocha"
-	@NODE_ENV=test $(mocha)
+	@NODE_ENV=test \
+	$(mocha) --config test/.mocharc.json
 
 cov:
 	@echo "[INFO] Testing with Nyc and Mocha"
 	@NODE_ENV=test \
-	nyc $(mocha)
+	nyc $(mocha) --config test/.mocharc.json
+
+lint:
+	@echo "[INFO] Linting"
+	@NODE_ENV=production \
+	$(eslint) . --ext .ts,.tsx \
+	--config ./typescript/.eslintrc.json
+
+lint-fix:
+	@echo "[INFO] Linting and Fixing"
+	@NODE_ENV=development \
+	$(eslint) . --ext .ts,.tsx \
+	--config ./typescript/.eslintrc.json --fix
 
 install:
 	@echo "[INFO] Installing dev Dependencies"
@@ -52,6 +66,14 @@ clean-linux:
 	@rm -rf coverage
 	@rm -rf storybook-static
 
-publish: install tests license build
+publish: install lint tests license build
 	@echo "[INFO] Publishing package"
 	@cd app && npm publish --access=public
+
+publish-dry-run: install lint tests license build
+	@echo "[INFO] Publishing package"
+	@cd app && npm publish --access=public --dry-run
+
+ts-version:
+	@echo "[INFO] Getting TypeScript Version"
+	@NODE_ENV=development $(tsc) --version
